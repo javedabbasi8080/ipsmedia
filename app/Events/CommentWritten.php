@@ -11,6 +11,7 @@ class CommentWritten
     use Dispatchable, SerializesModels;
 
     public $comment;
+    public $user;
 
     /**
      * Create a new event instance.
@@ -20,5 +21,9 @@ class CommentWritten
     public function __construct(Comment $comment)
     {
         $this->comment = $comment;
+        
+        $this->user = $comment->user;
+        // dd($this->user);
     }
 }
+

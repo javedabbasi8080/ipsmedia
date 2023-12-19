@@ -18,4 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/users/save/comment', [AchievementsController::class, 'saveComment']);
+
+
+Route::get('/users/save/achievements/{id}', [AchievementsController::class, 'saveAchievements']);
+
 Route::get('/users/{user}/achievements', [AchievementsController::class, 'index']);

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'badge',
     ];
 
     /**
@@ -65,6 +66,15 @@ class User extends Authenticatable
     public function watched()
     {
         return $this->belongsToMany(Lesson::class)->wherePivot('watched', true);
+    }
+
+    /**
+     * The  achievements  that a user has unlocked.
+     */
+    public function unlocked_achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements', 'user_id', 'achievement_id')
+            ->withTimestamps();
     }
 }
 
