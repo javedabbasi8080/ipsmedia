@@ -37,35 +37,4 @@ class AchievementsController extends Controller
             'remaing_to_unlock_next_badge' => $remaingUnlockNextBadge
         ]);
     }
-
-    public function saveAchievements($lessonId)
-    {
-        // Lesson::find($id);
-        $user = User::find(1);
-
-        $lesson = Lesson::find($lessonId);
-
-        $user->watched()->attach($lessonId, ['watched' => true]);
-        // new LessonWatchedListener()->handle($user);
-
-
-        if ($lesson && $user) {
-            // Dispatch the LessonWatched event
-            // Event::dispatch(new LessonWatched($lesson, $user));
-            LessonWatched::dispatch($lesson, $user);
-        }
-    }
-
-    public function saveComment()
-    {
-        $comment = Comment::create([
-            'body' => 'body',
-            'user_id' => 1
-        ]);
-
-
-        // dd($comment);
-
-        CommentWritten::dispatch($comment);
-    }
 }

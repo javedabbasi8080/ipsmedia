@@ -14,6 +14,8 @@ class LessonController extends Controller
      */
     public function index()
     {
+
+        return ["wel"];
         //
     }
 
@@ -32,7 +34,7 @@ class LessonController extends Controller
     {
 
         try {
-
+            
             $user = User::find($request->user_id);
             $lesson = Lesson::find($request->lesson_id);
             $user->watched()->attach($request->lesson_id, ['watched' => true]);

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AchievementsController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,7 @@ Route::get('/', function () {
 });
 
 
-// Route::get('/users/save/comment', [AchievementsController::class, 'saveComment']);
-
-
-// Route::get('/users/save/achievements/{id}', [AchievementsController::class, 'saveAchievements']);
-
 Route::get('/users/{user}/achievements', [AchievementsController::class, 'index']);
+
+Route::resource('comments', CommentController::class);
+Route::resource('lessons-watched', LessonController::class);
