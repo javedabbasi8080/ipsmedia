@@ -110,4 +110,12 @@ class User extends Authenticatable
         $remaining =  $totalBadges - $unlockedBadgesCount;
         return $remaining;
     }
+
+    public function nextAvailableAchievements()
+    {
+        $unlockedAchievements = $this->unlocked_achievements()->pluck('name')->toArray();
+        $allAchievements = Achievement::get()->pluck('name')->toArray();
+        $nextAvailableAchievements = array_values(array_diff($allAchievements, $unlockedAchievements));
+        return $nextAvailableAchievements;
+    }
 }

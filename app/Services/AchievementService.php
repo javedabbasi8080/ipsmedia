@@ -70,7 +70,7 @@ class AchievementService
         $badge = Badge::where('name',$badgeName)->first();
         $user->update(['badge' => $badgeName]);
         $user->badges()->attach($badge->id);
-
+     
         // Fire BadgeUnlocked event
         event(new BadgeUnlocked($badgeName, $user));
     }
