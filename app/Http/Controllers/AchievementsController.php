@@ -22,20 +22,18 @@ class AchievementsController extends Controller
 
     public function index(User $user)
     {
-
-        // $unlockedAchievements = $user->unlocked_achievements()->pluck('name')->toArray();
-        // $nextAvailableAchievements = $user->nextAvailableAchievements();
-        // $currentBadge = $user->badge;
-        // $nextBadge = $user->nextBadge();
-        // $remainingToUnlockNextBadge = $user->remainingToUnlockNextBadge();
-
+        
+        $unlockedAchievements = $user->unlocked_achievements()->pluck('name')->toArray();
+        $currentBadge = $user->badge;
+        $nextBadge = $user->nextBadge();
+        $remaingUnlockNextBadge = $user->remaingUnlockNextBadge();
 
         return response()->json([
-            'unlocked_achievements' => [],
-            'next_available_achievements' => [],
-            'current_badge' => '',
-            'next_badge' => '',
-            'remaing_to_unlock_next_badge' => 0
+            'unlocked_achievements' => $unlockedAchievements,
+            'next_available_achievements' =>[] ,
+            'current_badge' => $currentBadge,
+            'next_badge' => $nextBadge,
+            'remaing_to_unlock_next_badge' => $remaingUnlockNextBadge
         ]);
     }
 

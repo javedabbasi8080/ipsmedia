@@ -74,7 +74,7 @@ class User extends Authenticatable
      */
     public function badges()
     {
-        return $this->belongsToMany(Badge::class,'user_badges','user_id','badge_id');
+        return $this->belongsToMany(Badge::class, 'user_badges', 'user_id', 'badge_id');
     }
 
     /**
@@ -85,5 +85,29 @@ class User extends Authenticatable
         return $this->belongsToMany(Achievement::class, 'user_achievements', 'user_id', 'achievement_id')
             ->withTimestamps();
     }
-}
 
+    public function nextBadge()
+    {
+        $unlockedAchievementsCount = $this->unlocked_achievements()->count();
+
+        if ($unlockedAchievementsCount >= 10) {
+            return 'Master';
+        } elseif ($unlockedAchievementsCount >= 8) {
+            return 'Master';
+        } elseif ($unlockedAchievementsCount >= 4) {
+            return 'Advanced';
+        } elseif ($unlockedAchievementsCount >= 1) {
+            return 'Intermediate';
+        } else {
+            return 'Beginner';
+        }
+    }
+
+    public function remaingUnlockNextBadge()
+    {
+        $totalBadges = Badge::count();
+        $unlockedBadgesCount = $this->badges()->groupBy('user_id')->count();
+        $remaining =  $totalBadges - $unlockedBadgesCount;
+        return $remaining;
+    }
+}
