@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\{AchievementUnlocked, BadgeUnlocked};
 use App\Models\Achievement;
+use App\Models\Badge;
 use App\Models\User;
 
 class AchievementService
@@ -66,7 +67,9 @@ class AchievementService
     protected function unlockBadge($badgeName, User $user)
     {
         // Logic to unlock a badge for a user
+        $badge = Badge::where('name',$badgeName)->first();
         $user->update(['badge' => $badgeName]);
+        $user->badges()->attach($badge->id);
 
         // Fire BadgeUnlocked event
         event(new BadgeUnlocked($badgeName, $user));

@@ -68,6 +68,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class)->wherePivot('watched', true);
     }
 
+
+    /**
+     * The badges that a user has achieved.
+     */
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class,'user_badges','user_id','badge_id');
+    }
+
     /**
      * The  achievements  that a user has unlocked.
      */
